@@ -1,0 +1,51 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'jacoco'
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/reports/jacoco"
+    }
+}
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+	compile 'org.restlet.jse:org.restlet:2.3.6'
+	compile 'org.restlet.jse:org.restlet.ext.jackson:2.3.6'
+	testCompile 'junit:junit:4.12'
+	testCompile 'com.github.stefanbirkner:system-rules:1.16.0'
+}
+
+assemble << {
+    File server = file('server.sh')
+    server.withPrintWriter {
+        it.println '#!/bin/sh'
+        it.println "java -cp ${getRuntimeClasspath()} it.unimi.di.sweng.lab08.example.server.Server \"\$@\""
+    }
+    ant.chmod(file: server.absolutePath, perm: 'u+x')
+    File client = file('client.sh')
+    client.withPrintWriter {
+        it.println '#!/bin/sh'
+        it.println "java -cp ${getRuntimeClasspath()} it.unimi.di.sweng.lab08.example.client.Client \"\$@\""
+    }
+    ant.chmod(file: client.absolutePath, perm: 'u+x')
+    File set_classpath = file('set_classpath.sh')
+    set_classpath.withPrintWriter {
+        it.println "export CLASSPATH=\"${getRuntimeClasspath()}\""
+    }
+}
+
+String getRuntimeClasspath() {
+    sourceSets.main.runtimeClasspath.collect { it.absolutePath }.join(':')
+}
+
+clean.doFirst {
+    delete "${rootDir}/server.sh"
+    delete "${rootDir}/client.sh"
+    delete "${rootDir}/set_classpath.sh"
+}
