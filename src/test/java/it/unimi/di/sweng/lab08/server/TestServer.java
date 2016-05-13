@@ -1,12 +1,20 @@
 package it.unimi.di.sweng.lab08.server;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.Timeout;
 import org.restlet.resource.ResourceException;
 
 import it.unimi.di.sweng.lab08.example.mock.MockClient;
+import it.unimi.di.sweng.lab08.model.Job;
 
 public class TestServer {
 
@@ -30,6 +38,20 @@ public class TestServer {
 		server.stop();
 	}
 	
+	@Test
+	public void testEmpty() throws ResourceException, IOException {
+		Job.INSTANCE.loadJobs(new HashMap<String, String[]>());
+		assertEquals("[]", mockClient.get("/j/jobs"));
+	}
 	
+	@Test
+	public void testJobs() throws ResourceException, IOException {
+		final Map<String, String[]> jobs = new HashMap<String, String[]>();
+		String[] time = {"13:30", ""};
+		jobs.put("Bacon", time);
+		jobs.put("Bread", time);
+		Job.INSTANCE.loadJobs(jobs);
+		assertEquals("[\"Bread\",\"Bacon\"]", mockClient.get("/j/jobs"));
+	}
 	
 }

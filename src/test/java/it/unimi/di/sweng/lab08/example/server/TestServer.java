@@ -44,7 +44,7 @@ public class TestServer {
 	public void testGreet() throws ResourceException, IOException {
 		assertEquals("Hi friend!", mockClient.get("/g/greet/friend"));
 	}
-
+	/*
 	@Test
 	public void testFoods() throws ResourceException, IOException {
 		final Map<String, Integer> foods = new HashMap<String, Integer>();
@@ -53,7 +53,7 @@ public class TestServer {
 		Food.INSTANCE.loadFoods(foods);
 		assertEquals("{\"Bacon\":3,\"Bread\":5}", mockClient.get("/ed/foods"));
 	}
-
+	*/
 	@Test
 	public void testEat() throws ResourceException, IOException {
 		final Map<String, Integer> foods = new HashMap<String, Integer>();
@@ -61,7 +61,6 @@ public class TestServer {
 		Food.INSTANCE.loadFoods(foods);
 		mockClient.post("/ed/eat/Bread");
 	}
-
 	@Test(expected = ResourceException.class)
 	public void testCantEat() throws ResourceException, IOException {
 		final Map<String, Integer> foods = new HashMap<String, Integer>();
