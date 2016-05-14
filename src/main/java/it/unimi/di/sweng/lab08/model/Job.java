@@ -18,9 +18,9 @@ public enum Job {
 		StringBuilder res = new StringBuilder();
 		String[] time = JOB.get(job);
 		if (time[1]=="")
-			res.append(time[0]);
+			res.append("Inizio " + time[0]);
 		else
-			res.append(time.toString());
+			res.append("Inizio " + time[0]).append(", fine " + time[1]);
 		return res.toString();
 	}
 	

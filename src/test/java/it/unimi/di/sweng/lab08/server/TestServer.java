@@ -1,6 +1,7 @@
 package it.unimi.di.sweng.lab08.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import org.restlet.resource.ResourceException;
 
 import it.unimi.di.sweng.lab08.example.mock.MockClient;
 import it.unimi.di.sweng.lab08.model.Job;
+import junit.framework.AssertionFailedError;
 
 public class TestServer {
 
@@ -62,7 +64,21 @@ public class TestServer {
 		jobs.put("sport", time1);
 		jobs.put("pizza", time2);
 		Job.INSTANCE.loadJobs(jobs);
-		assertEquals("16:30",mockClient.get("/j/job/sport"));
+		assertEquals("Inizio 16:30",mockClient.get("/j/job/sport"));
+	}
+	
+	@Test
+	public void testGetAllJobInfo() throws ResourceException, IOException {
+		final Map<String,String[]> jobs = new HashMap<String,String[]>();
+		String[] time = {"10:30", "12:30"};
+		jobs.put("partita", time);
+		Job.INSTANCE.loadJobs(jobs);
+		assertEquals("Inizio 10:30, fine 12:30",mockClient.get("/j/job/partita"));
+	}
+	
+	@Test (expected = ResourceException.class)
+	public void testGetJobInfoException() throws ResourceException, IOException {
+		mockClient.get("/j/job/compiti");
 	}
 	
 }
