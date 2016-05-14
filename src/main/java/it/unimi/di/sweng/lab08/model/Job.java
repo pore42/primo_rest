@@ -13,12 +13,15 @@ public enum Job {
 		return new HashMap<String,String[]>(JOB); // we return a copy
 	}
 	
-	public synchronized Map<String,String[]> getJobInfo(final String job) {
-		if (!JOB.containsKey(job)) throw new NoSuchElementException("The job " + job + " is already created.");
+	public synchronized String getJobInfo(final String job) {
+		if (!JOB.containsKey(job)) throw new NoSuchElementException("The job " + job + " is not already created.");
+		StringBuilder res = new StringBuilder();
 		String[] time = JOB.get(job);
-		HashMap<String,String[]> tmp = new HashMap<String,String[]>();
-		tmp.put(job, time);
-		return tmp;
+		if (time[1]=="")
+			res.append(time[0]);
+		else
+			res.append(time.toString());
+		return res.toString();
 	}
 	
 	public synchronized void setBegin(final String job, final String hour) {

@@ -54,4 +54,15 @@ public class TestServer {
 		assertEquals("[\"Bread\",\"Bacon\"]", mockClient.get("/j/jobs"));
 	}
 	
+	@Test
+	public void testGetJobInfo() throws ResourceException, IOException {
+		final Map<String, String[]> jobs = new HashMap<String, String[]>();
+		String[] time1 = {"16:30", ""};
+		String[] time2 = {"20:30", ""};
+		jobs.put("sport", time1);
+		jobs.put("pizza", time2);
+		Job.INSTANCE.loadJobs(jobs);
+		assertEquals("16:30",mockClient.get("/j/job/sport"));
+	}
+	
 }

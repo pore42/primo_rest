@@ -4,7 +4,6 @@ import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
 
-
 public class JobsApplication extends Application {
 	
 	@Override
@@ -12,6 +11,7 @@ public class JobsApplication extends Application {
         Router router = new Router( getContext() );
         
         router.attach( "/jobs", JobsResource.class );
+        router.attach("/job/{name}", AddJobsResource.class );
         
         return router;
     }
