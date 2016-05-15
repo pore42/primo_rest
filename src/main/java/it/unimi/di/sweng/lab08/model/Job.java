@@ -37,12 +37,14 @@ public enum Job {
 	
 	public synchronized void setBegin(final String job, final String hour) {
 		if (JOB.containsKey(job)) throw new NoSuchElementException("The job " + job + " is already created.");
+		if (!checkHour(hour)) throw new IllegalArgumentException("Illegal hour");
 		String[] time = {hour, ""}; 
 		JOB.put(job, time);
 	}
 	
 	public synchronized void setEnd(final String job, final String hour) {
 		if (!JOB.containsKey(job)) throw new NoSuchElementException("The job " + job + " is not already created.");
+		if (!checkHour(hour)) throw new IllegalArgumentException("Illegal hour");
 		String[] time = JOB.get(job);
 		time[1] = hour;
 		JOB.put(job, time);
@@ -52,5 +54,14 @@ public enum Job {
 		// TODO Auto-generated method stub
 		JOB.clear();
 		JOB.putAll(jobs);
+	}
+	
+	private boolean checkHour(final String hour) {
+		String[] splitted = hour.split(":");
+		if (splitted.length==1)
+			return false;
+		if (Integer.parseInt(splitted[0])>23 || Integer.parseInt(splitted[1])>59)
+			return false;
+		return true;
 	}
 }

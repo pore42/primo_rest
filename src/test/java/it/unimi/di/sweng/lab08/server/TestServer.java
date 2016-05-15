@@ -108,4 +108,15 @@ public class TestServer {
 	public void testInsertEndOfAJobWithNoBegin() throws ResourceException, IOException {
 		mockClient.post("/j/job/calcio/end/15:30");
 	}
+	
+	@Test (expected = ResourceException.class)
+	public void testWrongHour() throws ResourceException, IOException {
+		mockClient.post("/j/job/mare/begin/18:36");
+		mockClient.post("/j/job/festa/begin/25:12");
+	}
+	
+	@Test (expected = ResourceException.class)
+	public void testWrongHourFormat() throws ResourceException, IOException {
+		mockClient.post("/j/job/festa/begin/25.12");
+	}
 }
