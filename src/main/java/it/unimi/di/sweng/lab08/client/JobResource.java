@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.restlet.resource.Get;
 
+
 public interface JobResource {
 	@Get
 	public Map<String,String[]> jobQuantities();

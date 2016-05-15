@@ -67,4 +67,10 @@ public class TestClient {
 						   + "\"Basket\":[\"12:30\"]}"); 
 		assertEquals("Basket=[12:30]",client.job("Basket").toString());
 	}
+	
+	@Test
+	public void testAddJob() {
+		client.newJob("Basket", "12:30");
+		//System.out.println(client.job("Basket"));
+	}
 }
