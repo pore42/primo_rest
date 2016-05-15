@@ -2,6 +2,7 @@ package it.unimi.di.sweng.lab08.client;
 
 import java.util.Set;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.restlet.resource.ClientResource;
 
@@ -20,8 +21,13 @@ public class Client {
 	}
 	
 	public Set<String> jobs() {
-		final Map<String,String[]> allJobs = allJobs();
-		return allJobs.keySet();
+		final JobResource jobs = ClientResource.create(serverUrl + "/j/jobs", JobResource.class);
+		return jobs.jobQuantities().keySet();
+	}
+
+	public String job(String string) {
+		final JobResource jobs = ClientResource.create(serverUrl + "/j/jobs/" + string, JobResource.class);
+		return string + "="+ jobs.jobQuantities().get(string);
 	}
 
 }
