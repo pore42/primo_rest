@@ -104,4 +104,8 @@ public class TestServer {
 		mockClient.post("/j/job/calcio/end/15:30");
 	}
 	
+	@Test (expected = ResourceException.class)
+	public void testInsertEndOfAJobWithNoBegin() throws ResourceException, IOException {
+		mockClient.post("/j/job/calcio/end/15:30");
+	}
 }
