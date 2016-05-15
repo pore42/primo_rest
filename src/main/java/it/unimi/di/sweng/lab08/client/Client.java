@@ -1,7 +1,7 @@
 package it.unimi.di.sweng.lab08.client;
 
 import java.util.Set;
-import java.util.Map.Entry;
+import java.util.Map;
 
 import org.restlet.resource.ClientResource;
 
@@ -14,9 +14,14 @@ public class Client {
 		this.serverUrl = "http://localhost:" + port;
 	}
 
-	public Set<Entry<String,String[]>> jobs() {
+	private Map<String,String[]> allJobs() {
 		final JobResource jobs = ClientResource.create(serverUrl + "/j/jobs", JobResource.class);
-		return jobs.jobQuantities().entrySet();
+		return jobs.jobQuantities();
+	}
+	
+	public Set<String> jobs() {
+		final Map<String,String[]> allJobs = allJobs();
+		return allJobs.keySet();
 	}
 
 }

@@ -1,5 +1,7 @@
 package it.unimi.di.sweng.lab08.client;
 
+import static org.junit.Assert.*;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -33,11 +35,20 @@ public class TestClient {
 
 	@Test
 	public void testJobs() {
-		mockServer.setReply(Method.GET,                   // azione da simulare
-				            "/j/jobs",                  // dove dovrebbero essere localizzati i dati
+		mockServer.setReply(Method.GET,                  
+				            "/j/jobs",                 
 				            "{\"University\":[\"12:30\", \"13:30\"],"
-				            + "\"Basket\":[\"12:30\", \"13:30\"]}"); // i dati che dovrebbero essere presenti nel serer
-		System.out.println(client.jobs());
+				            + "\"Basket\":[\"12:30\", \"13:30\"]}"); 
+		assertEquals("[University, Basket]",client.jobs().toString());
 	}
+	
+	@Test
+	public void testEmptyJobs() {
+		mockServer.setReply(Method.GET,                  
+				            "/j/jobs",                 
+				            "{}"); 
+		assertEquals("[]",client.jobs().toString());
+	}
+	
 
 }
