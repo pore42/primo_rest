@@ -15,6 +15,7 @@ public class JobsApplication extends Application {
         router.attach("/job/{name}/begin/{begin}", PostJobWithBeginResource.class);
         router.attach("/job/{name}/end/{end}", PostJobWithEndResource.class);
         router.attach("/running", GetJobRunning.class);
+        router.attach("/active/{hour}", GetJobActive.class);
         return router;
     }
 }

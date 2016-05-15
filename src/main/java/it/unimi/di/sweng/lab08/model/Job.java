@@ -77,14 +77,26 @@ public enum Job {
 	}
 	
 	public List<String> jobRunning() {
-		List<String> res = new ArrayList<String>();
+		List<String> result = new ArrayList<String>();
 		Iterator it = JOB.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry entry = (Map.Entry)it.next();
 			String[] tmp = (String[]) entry.getValue();
 			if (tmp[1] == "")
-				res.add((String) entry.getKey());
+				result.add((String) entry.getKey());
 		}
-		return res;
+		return result;
+	}
+	
+	public List<String> getJobActive (final String hour) {
+		List<String> result = new ArrayList<String>();
+		Iterator it = JOB.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry entry = (Map.Entry)it.next();
+			String[] tmp = (String[]) entry.getValue();
+			if (tmp[0] == hour || tmp[1] == hour)
+				result.add((String) entry.getKey());
+		}
+		return result;
 	}
 }
