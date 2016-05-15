@@ -13,6 +13,7 @@ public class JobsApplication extends Application {
         router.attach( "/jobs", JobsResource.class );
         router.attach("/job/{name}", GetJobResource.class );
         router.attach("/job/{name}/begin/{begin}", PostJobWithBeginResource.class);
+        router.attach("/job/{name}/end/{end}", PostJobWithEndResource.class);
         return router;
     }
 }

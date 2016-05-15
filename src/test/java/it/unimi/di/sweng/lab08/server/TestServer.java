@@ -98,4 +98,10 @@ public class TestServer {
 		mockClient.post("/j/job/scuola/begin/13:30");
 	}
 	
+	@Test
+	public void testInsertEndOfAJob() throws ResourceException, IOException {
+		mockClient.post("/j/job/calcio/begin/13:30");
+		mockClient.post("/j/job/calcio/end/15:30");
+	}
+	
 }
