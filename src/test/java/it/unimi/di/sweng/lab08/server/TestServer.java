@@ -1,13 +1,13 @@
 package it.unimi.di.sweng.lab08.server;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import org.restlet.resource.ResourceException;
 
 import it.unimi.di.sweng.lab08.example.mock.MockClient;
 import it.unimi.di.sweng.lab08.model.Job;
-import junit.framework.AssertionFailedError;
 
 public class TestServer {
 
@@ -38,6 +37,12 @@ public class TestServer {
 	@AfterClass
 	public static void tearDown() throws Exception {
 		server.stop();
+	}
+	
+	@Before
+	public void emptyJobs() {
+		final Map<String, String[]> jobs = new HashMap<String, String[]>();
+		Job.INSTANCE.loadJobs(jobs);
 	}
 	
 	@Test
@@ -85,6 +90,12 @@ public class TestServer {
 	public void testInsertBeginOfAJob() throws ResourceException, IOException {
 		mockClient.post("/j/job/scuola/begin/13:30");
 		assertEquals("{\"fine\":\"\",\"inizio\":\"13:30\"}", mockClient.get("/j/job/scuola"));
+	}
+	
+	@Test (expected = ResourceException.class)
+	public void testInsertThatFailBecauseJobAlreadyInsert() throws ResourceException, IOException {
+		mockClient.post("/j/job/scuola/begin/13:30");
+		mockClient.post("/j/job/scuola/begin/13:30");
 	}
 	
 }
