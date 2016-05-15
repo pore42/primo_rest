@@ -100,7 +100,7 @@ public class TestServer {
 	
 	@Test
 	public void testInsertEndOfAJob() throws ResourceException, IOException {
-		mockClient.post("/j/job/calcio/begin/13:30");
+		mockClient.post("/c");
 		mockClient.post("/j/job/calcio/end/15:30");
 	}
 	

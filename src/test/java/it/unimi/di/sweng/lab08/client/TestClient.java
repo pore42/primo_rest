@@ -68,9 +68,9 @@ public class TestClient {
 		assertEquals("Basket=[12:30]",client.job("Basket").toString());
 	}
 	
-	@Test
+	/*@Test
 	public void testAddJob() {
 		client.newJob("Basket", "12:30");
 		//System.out.println(client.job("Basket"));
-	}
+	}*/
 }

@@ -1,7 +1,6 @@
 package it.unimi.di.sweng.lab08.client;
 
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
@@ -26,10 +25,11 @@ public class Client {
 	}
 	
 	public void newJob(final String job, final String begin) {
-		final ClientResource jobClient = new ClientResource(serverUrl + "/j/job/");
+		final ClientResource jobClient = new ClientResource(serverUrl + "/j/jobs/");
 		jobClient.addSegment(job);
-		jobClient.addSegment("/begin");
-		jobClient.addSegment(begin);
+		jobClient.addSegment("begin");
+		String[] tmp = begin.split(":");
+		jobClient.addSegment((tmp[0] + "_" +tmp[1]));
 		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
 		newJob.post();
 	}
