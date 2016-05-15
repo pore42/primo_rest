@@ -81,4 +81,10 @@ public class TestServer {
 		mockClient.get("/j/job/compiti");
 	}
 	
+	@Test
+	public void testInsertBeginOfAJob() throws ResourceException, IOException {
+		mockClient.post("/j/job/scuola/begin/13:30");
+		assertEquals("{\"fine\":\"\",\"inizio\":\"13:30\"}", mockClient.get("/j/job/scuola"));
+	}
+	
 }
