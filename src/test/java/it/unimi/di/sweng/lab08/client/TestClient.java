@@ -1,4 +1,4 @@
-package it.unimi.di.sweng.lab08.example.client;
+package it.unimi.di.sweng.lab08.client;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.rules.Timeout;
 import org.restlet.data.Method;
 
-import it.unimi.di.sweng.lab08.example.client.Client;
+import it.unimi.di.sweng.lab08.client.Client;
 import it.unimi.di.sweng.lab08.example.mock.MockServer;
 
 public class TestClient {
@@ -32,12 +32,12 @@ public class TestClient {
 	}
 
 	@Test
-	public void testFoods() {
-		// fase di impostazione del mockServer
+	public void testJobs() {
 		mockServer.setReply(Method.GET,                   // azione da simulare
-				            "/ed/foods",                  // dove dovrebbero essere localizzati i dati
-				            "{\"Bacon\":3\"Bread\":5}"); // i dati che dovrebbero essere presenti nel serer
-		System.out.println(client.foods());
+				            "/j/jobs",                  // dove dovrebbero essere localizzati i dati
+				            "{\"University\":[\"12:30\", \"13:30\"],"
+				            + "\"Basket\":[\"12:30\", \"13:30\"]}"); // i dati che dovrebbero essere presenti nel serer
+		System.out.println(client.jobs());
 	}
 
 }

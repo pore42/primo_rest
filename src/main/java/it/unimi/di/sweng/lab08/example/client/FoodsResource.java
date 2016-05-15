@@ -5,7 +5,7 @@ import java.util.Map;
 import org.restlet.resource.Get;
 
 public interface FoodsResource {
-	// Map<String, String[2]>
+	// Trasforma un formato json in Map<String,Integer>
 	@Get
 	public Map<String,Integer> foodQuantities();
 
