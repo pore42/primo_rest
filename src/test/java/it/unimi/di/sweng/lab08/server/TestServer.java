@@ -119,4 +119,10 @@ public class TestServer {
 	public void testWrongHourFormat() throws ResourceException, IOException {
 		mockClient.post("/j/job/festa/begin/25.12");
 	}
+	
+	@Test (expected = ResourceException.class)
+	public void testHourBefore() throws ResourceException, IOException {
+		mockClient.post("/j/job/studio/begin/10:30");
+		mockClient.post("/j/job/studio/end/10:00");
+	}
 }

@@ -45,6 +45,7 @@ public enum Job {
 	public synchronized void setEnd(final String job, final String hour) {
 		if (!JOB.containsKey(job)) throw new NoSuchElementException("The job " + job + " is not already created.");
 		if (!checkHour(hour)) throw new IllegalArgumentException("Illegal hour");
+		if (isBeforeStart(job, hour)) throw new IllegalArgumentException("The job must end after his start");
 		String[] time = JOB.get(job);
 		time[1] = hour;
 		JOB.put(job, time);
@@ -63,5 +64,12 @@ public enum Job {
 		if (Integer.parseInt(splitted[0])>23 || Integer.parseInt(splitted[1])>59)
 			return false;
 		return true;
+	}
+	
+	private boolean isBeforeStart(final String job, final String hour) {
+		String[] hours = JOB.get(job);
+		if (hours[0].compareTo(hour)>0)
+			return true;
+		return false;
 	}
 }
