@@ -30,8 +30,8 @@ public class Client {
 		jobClient.addSegment(job);
 		jobClient.addSegment("/begin");
 		jobClient.addSegment(begin);
-		final NewJobResource newJob = jobClient.wrap(NewJobResource.class);
-		newJob.add();
+		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
+		newJob.post();
 	}
 
 	public void endJob(final String job, final String end) {
@@ -39,8 +39,8 @@ public class Client {
 		jobClient.addSegment(job);
 		jobClient.addSegment("/end");
 		jobClient.addSegment(end);
-		final NewJobResource newJob = jobClient.wrap(NewJobResource.class);
-		newJob.add();
+		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
+		newJob.post();
 	}
 
 	public static void main(String args[]) {

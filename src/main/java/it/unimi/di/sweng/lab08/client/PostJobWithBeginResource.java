@@ -2,8 +2,8 @@ package it.unimi.di.sweng.lab08.client;
 
 import org.restlet.resource.Post;
 
-public interface NewJobResource {
+public interface PostJobWithBeginResource {
 
 	@Post
-	public void add();
+	public void post();
 }
