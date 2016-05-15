@@ -6,7 +6,6 @@ import java.util.Map;
 import org.restlet.Component;
 import org.restlet.data.Protocol;
 
-import it.unimi.di.sweng.lab08.example.model.Food;
 import it.unimi.di.sweng.lab08.example.server.EatAndDrinkApplication;
 import it.unimi.di.sweng.lab08.example.server.GreetApplication;
 import it.unimi.di.sweng.lab08.model.Job;
