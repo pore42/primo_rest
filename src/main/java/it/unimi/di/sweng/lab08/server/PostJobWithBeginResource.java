@@ -8,7 +8,7 @@ import org.restlet.resource.ServerResource;
 
 import it.unimi.di.sweng.lab08.model.Job;
 
-public class PostJobResource extends ServerResource{
+public class PostJobWithBeginResource extends ServerResource{
 
 	@Post
 	public void post()

@@ -3,9 +3,6 @@ package it.unimi.di.sweng.lab08.server;
 import org.restlet.resource.ServerResource;
 
 import it.unimi.di.sweng.lab08.model.Job;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

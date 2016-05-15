@@ -1,9 +1,6 @@
 package it.unimi.di.sweng.lab08.server;
 
 import java.util.Map;
-import java.util.NoSuchElementException;
-
-import org.restlet.data.Status;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
