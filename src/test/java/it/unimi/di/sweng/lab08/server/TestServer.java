@@ -125,4 +125,17 @@ public class TestServer {
 		mockClient.post("/j/job/studio/begin/10:30");
 		mockClient.post("/j/job/studio/end/10:00");
 	}
+	
+	@Test
+	public void testRunning() throws ResourceException, IOException {
+		mockClient.post("/j/job/mare/begin/18:36");
+		mockClient.post("/j/job/cena/begin/19:20");
+		assertEquals("[\"mare\",\"cena\"]",mockClient.get("/j/running"));
+	}
+	
+	@Test
+	public void testAnythingRunning() throws ResourceException, IOException {
+		assertEquals("[]",mockClient.get("/j/running"));
+	}
+	
 }

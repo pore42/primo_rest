@@ -1,6 +1,9 @@
 package it.unimi.di.sweng.lab08.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -71,5 +74,17 @@ public enum Job {
 		if (hours[0].compareTo(hour)>0)
 			return true;
 		return false;
+	}
+	
+	public List<String> jobRunning() {
+		List<String> res = new ArrayList<String>();
+		Iterator it = JOB.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry entry = (Map.Entry)it.next();
+			String[] tmp = (String[]) entry.getValue();
+			if (tmp[1] == "")
+				res.add((String) entry.getKey());
+		}
+		return res;
 	}
 }
