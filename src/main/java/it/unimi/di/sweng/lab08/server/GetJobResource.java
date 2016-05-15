@@ -9,7 +9,7 @@ import org.restlet.resource.ServerResource;
 
 import it.unimi.di.sweng.lab08.model.Job;
 
-public class AddJobsResource extends ServerResource {
+public class GetJobResource extends ServerResource {
 	
 	@Get("json")
 	public Map<String, String> getJobInfo() {

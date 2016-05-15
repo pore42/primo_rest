@@ -11,7 +11,7 @@ public class JobsApplication extends Application {
         Router router = new Router( getContext() );
         
         router.attach( "/jobs", JobsResource.class );
-        router.attach("/job/{name}", AddJobsResource.class );
+        router.attach("/job/{name}", GetJobResource.class );
         
         return router;
     }
