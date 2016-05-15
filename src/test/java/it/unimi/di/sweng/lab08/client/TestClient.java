@@ -58,4 +58,13 @@ public class TestClient {
 						   + "\"Basket\":[\"12:30\", \"13:30\"]}"); 
 		assertEquals("Basket=[12:30, 13:30]",client.job("Basket").toString());
 	}
+	
+	@Test
+	public void testNameBeginJobs() {
+		mockServer.setReply(Method.GET,                  
+				            "/j/jobs/Basket",                 
+				            "{\"University\":[\"12:30\", \"13:30\"],"
+						   + "\"Basket\":[\"12:30\"]}"); 
+		assertEquals("Basket=[12:30]",client.job("Basket").toString());
+	}
 }
