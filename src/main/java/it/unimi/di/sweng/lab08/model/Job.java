@@ -73,7 +73,9 @@ public enum Job {
 	
 	private boolean isBeforeStart(final String job, final String hour) {
 		String[] hours = JOB.get(job);
-		if (hours[0].compareTo(hour)>0)
+		if (Integer.parseInt(hours[0].split(":")[0]) > Integer.parseInt(hour.split(":")[0]))
+			return true;
+		else if(Integer.parseInt(hours[0].split(":")[0]) == Integer.parseInt(hour.split(":")[0]) && Integer.parseInt(hours[0].split(":")[1]) > Integer.parseInt(hour.split(":")[1]))
 			return true;
 		return false;
 	}
