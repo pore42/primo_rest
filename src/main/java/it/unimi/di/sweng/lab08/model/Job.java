@@ -91,12 +91,13 @@ public enum Job {
 	}
 	
 	public List<String> getJobActive (final String hour) {
+		String newHour = hour.replace("%3A", ":");
 		List<String> result = new ArrayList<String>();
 		Iterator it = JOB.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry entry = (Map.Entry)it.next();
 			String[] tmp = (String[]) entry.getValue();
-			if (tmp[0].compareTo(hour)<0 && (tmp[1].compareTo("")==0 || tmp[1].compareTo(hour)>0))
+			if (tmp[0].compareTo(newHour)<=0 && (tmp[1].compareTo("")==0 || tmp[1].compareTo(newHour)>=0))
 				result.add((String) entry.getKey());
 		}
 		return result;
