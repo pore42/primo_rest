@@ -39,18 +39,20 @@ public enum Job {
 	}
 	
 	public synchronized void setBegin(final String job, final String hour) {
+		String newhour = hour.replace("%3A", ":");
 		if (JOB.containsKey(job)) throw new NoSuchElementException("The job " + job + " is already created.");
-		if (!checkHour(hour)) throw new IllegalArgumentException("Illegal hour");
-		String[] time = {hour, ""}; 
+		if (!checkHour(newhour)) throw new IllegalArgumentException("Illegal hour");
+		String[] time = {newhour, ""}; 
 		JOB.put(job, time);
 	}
 	
 	public synchronized void setEnd(final String job, final String hour) {
+		String newHour = hour.replace("%3A", ":");
 		if (!JOB.containsKey(job)) throw new NoSuchElementException("The job " + job + " is not already created.");
-		if (!checkHour(hour)) throw new IllegalArgumentException("Illegal hour");
-		if (isBeforeStart(job, hour)) throw new IllegalArgumentException("The job must end after his start");
+		if (!checkHour(newHour)) throw new IllegalArgumentException("Illegal hour");
+		if (isBeforeStart(job, newHour)) throw new IllegalArgumentException("The job must end after his start");
 		String[] time = JOB.get(job);
-		time[1] = hour;
+		time[1] = newHour;
 		JOB.put(job, time);
 	}
 	
@@ -94,7 +96,7 @@ public enum Job {
 		while (it.hasNext()) {
 			Map.Entry entry = (Map.Entry)it.next();
 			String[] tmp = (String[]) entry.getValue();
-			if (tmp[0] == hour || tmp[1] == hour)
+			if (tmp[0].compareTo(hour)<0 && (tmp[1].compareTo("")==0 || tmp[1].compareTo(hour)>0))
 				result.add((String) entry.getKey());
 		}
 		return result;
