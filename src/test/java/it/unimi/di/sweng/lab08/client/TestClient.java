@@ -42,7 +42,7 @@ public class TestClient {
 		assertEquals("[University, Basket]",client.jobs().toString());
 	}
 	
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void testEmptyJobs() {
 		mockServer.setReply(Method.GET,                  
 				            "/j/jobs",                 
@@ -53,24 +53,20 @@ public class TestClient {
 	@Test
 	public void testNameJobs() {
 		mockServer.setReply(Method.GET,                  
-				            "/j/jobs/Basket",                 
+				            "/j/job/Basket",                 
 				            "{\"University\":[\"12:30\", \"13:30\"],"
 						   + "\"Basket\":[\"12:30\", \"13:30\"]}"); 
-		assertEquals("Basket=[12:30, 13:30]",client.job("Basket").toString());
+		assertEquals("Basket = [12:30, 13:30]",client.job("Basket").toString());
 	}
 	
 	@Test
 	public void testNameBeginJobs() {
 		mockServer.setReply(Method.GET,                  
-				            "/j/jobs/Basket",                 
+				            "/j/job/Basket",                 
 				            "{\"University\":[\"12:30\", \"13:30\"],"
 						   + "\"Basket\":[\"12:30\"]}"); 
-		assertEquals("Basket=[12:30]",client.job("Basket").toString());
+		assertEquals("Basket = [12:30]",client.job("Basket").toString());
 	}
 	
-	/*@Test
-	public void testAddJob() {
-		client.newJob("Basket", "12:30");
-		//System.out.println(client.job("Basket"));
-	}*/
+	
 }

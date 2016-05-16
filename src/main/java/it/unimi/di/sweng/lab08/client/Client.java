@@ -16,18 +16,20 @@ public class Client {
 
 	public Set<String> jobs() {
 		final JobResource jobs = ClientResource.create(serverUrl + "/j/jobs", JobResource.class);
+		if(jobs.jobQuantities().keySet().isEmpty()) throw new IllegalArgumentException("There are no Jobs");
 		return jobs.jobQuantities().keySet();
 	}
 
 	public String job(final String string) {
-		final JobResource jobs = ClientResource.create(serverUrl + "/j/jobs/" + string, JobResource.class);
-		return string + "=" + jobs.jobQuantities().get(string);
+		final JobResource jobs = ClientResource.create(serverUrl + "/j/job/" + string, JobResource.class);
+		return string + " = " + jobs.jobQuantities().get(string);
 	}
 	
 	public void newJob(final String job, final String begin) {
 		final ClientResource jobClient = new ClientResource(serverUrl + "/j/job/");
 		jobClient.addSegment(job);
 		jobClient.addSegment("begin");
+		//jobClient.addSegment(begin);
 		jobClient.addSegment(begin.replaceAll(":", "_"));
 		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
 		newJob.post();
@@ -37,6 +39,7 @@ public class Client {
 		final ClientResource jobClient = new ClientResource(serverUrl + "/j/job/");
 		jobClient.addSegment(job);
 		jobClient.addSegment("end");
+		//jobClient.addSegment(end);
 		jobClient.addSegment(end.replaceAll(":", "_"));
 		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
 		newJob.post();
@@ -45,7 +48,7 @@ public class Client {
 	public static void main(String args[]) {
 
 		if (args.length == 0) {
-			System.err.println("Missing command, available commands: jobs|job|newJob|endJob JOBS");
+			System.err.println("Missing command, available commands: jobs|job|newJob|endJob");
 			System.exit(-1);
 		}
 
@@ -55,7 +58,7 @@ public class Client {
 
 		case "jobs":
 			try {
-				System.out.format("There are: ");
+				//System.out.format("There are: ");
 				for (String job : client.jobs())
 					System.out.format("%s ", job);
 			} catch (ResourceException e) {
