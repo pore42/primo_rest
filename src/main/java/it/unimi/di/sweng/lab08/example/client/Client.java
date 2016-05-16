@@ -15,8 +15,6 @@ public class Client {
 		this.serverUrl = "http://localhost:" + port;
 	}
 
-	// restituisce un insieme delle entry di Map<String, Integer>
-	// questo in pratica interroga il server e si fa dare quello che contiene, esempio in testClient
 	public Set<Entry<String, Integer>> foods() {
 		final FoodsResource foods = ClientResource.create(serverUrl + "/ed/foods", FoodsResource.class);
 		return foods.foodQuantities().entrySet();
