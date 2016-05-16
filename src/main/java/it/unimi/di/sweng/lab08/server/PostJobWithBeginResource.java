@@ -20,6 +20,9 @@ public class PostJobWithBeginResource extends ServerResource{
 		} catch (NoSuchElementException e)
 		{
 			setStatus(Status.CLIENT_ERROR_NOT_FOUND, e.getMessage());
+		} catch (IllegalArgumentException e)
+		{
+			setStatus(Status.CLIENT_ERROR_BAD_REQUEST, e.getMessage());
 		}
 	}
 	

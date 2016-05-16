@@ -25,13 +25,13 @@ assemble << {
     File server = file('server.sh')
     server.withPrintWriter {
         it.println '#!/bin/sh'
-        it.println "java -cp ${getRuntimeClasspath()} it.unimi.di.sweng.lab08.example.server.Server \"\$@\""
+        it.println "java -cp ${getRuntimeClasspath()} it.unimi.di.sweng.lab08.server.Server \"\$@\""
     }
     ant.chmod(file: server.absolutePath, perm: 'u+x')
     File client = file('client.sh')
     client.withPrintWriter {
         it.println '#!/bin/sh'
-        it.println "java -cp ${getRuntimeClasspath()} it.unimi.di.sweng.lab08.example.client.Client \"\$@\""
+        it.println "java -cp ${getRuntimeClasspath()} it.unimi.di.sweng.lab08.client.Client \"\$@\""
     }
     ant.chmod(file: client.absolutePath, perm: 'u+x')
     File set_classpath = file('set_classpath.sh')
