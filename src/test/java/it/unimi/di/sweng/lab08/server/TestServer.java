@@ -122,8 +122,10 @@ public class TestServer {
 	
 	@Test (expected = ResourceException.class)
 	public void testHourBefore() throws ResourceException, IOException {
-		mockClient.post("/j/job/studio/begin/10:30");
-		mockClient.post("/j/job/studio/end/10:00");
+		mockClient.post("/j/job/studio/begin/09:45");
+		mockClient.post("/j/job/studio/end/9:30");
+		mockClient.post("/j/job/test/begin/9:30");
+		mockClient.post("/j/job/test/end/09:30");
 	}
 	
 	@Test
@@ -152,6 +154,11 @@ public class TestServer {
 	public void testAnythingActive() throws ResourceException, IOException {
 		mockClient.post("/j/job/calcio/begin/14:15");
 		assertEquals("[]", mockClient.get("/j/active/12:30"));
+	}
+	
+	@Test (expected = ResourceException.class)
+	public void testNegativeNumbers() throws ResourceException, IOException {
+		mockClient.post("/j/job/nome/begin/-12:-45");
 	}
 	
 }

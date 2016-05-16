@@ -6,8 +6,6 @@ import java.util.Map;
 import org.restlet.Component;
 import org.restlet.data.Protocol;
 
-import it.unimi.di.sweng.lab08.example.server.EatAndDrinkApplication;
-import it.unimi.di.sweng.lab08.example.server.GreetApplication;
 import it.unimi.di.sweng.lab08.model.Job;
 
 public class Server {
@@ -19,8 +17,6 @@ public class Server {
 			Job.INSTANCE.loadJobs(jobs);
 		component = new Component();
 		component.getServers().add(Protocol.HTTP, port);
-		component.getDefaultHost().attach("/g", new GreetApplication());
-		component.getDefaultHost().attach("/ed", new EatAndDrinkApplication());
 		component.getDefaultHost().attach("/j", new JobsApplication());
 	}
 

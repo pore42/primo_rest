@@ -66,14 +66,16 @@ public enum Job {
 		String[] splitted = hour.split("_");
 		if (splitted.length==1)
 			return false;
-		if (Integer.parseInt(splitted[0])>23 || Integer.parseInt(splitted[1])>59)
+		if ((Integer.parseInt(splitted[0])>23 || Integer.parseInt(splitted[0])<0) || (Integer.parseInt(splitted[1])>59 || Integer.parseInt(splitted[0])<0))
 			return false;
 		return true;
 	}
 	
 	private boolean isBeforeStart(final String job, final String hour) {
 		String[] hours = JOB.get(job);
-		if (hours[0].compareTo(hour)>0)
+		if (Integer.parseInt(hours[0].split(":")[0]) > Integer.parseInt(hour.split(":")[0]))
+			return true;
+		else if(Integer.parseInt(hours[0].split(":")[0]) == Integer.parseInt(hour.split(":")[0]) && Integer.parseInt(hours[0].split(":")[1]) > Integer.parseInt(hour.split(":")[1]))
 			return true;
 		return false;
 	}
@@ -91,12 +93,13 @@ public enum Job {
 	}
 	
 	public List<String> getJobActive (final String hour) {
+		String newHour = hour.replace("%3A", ":");
 		List<String> result = new ArrayList<String>();
 		Iterator it = JOB.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry entry = (Map.Entry)it.next();
 			String[] tmp = (String[]) entry.getValue();
-			if (tmp[0].compareTo(hour)<0 && (tmp[1].compareTo("")==0 || tmp[1].compareTo(hour)>0))
+			if (tmp[0].compareTo(newHour)<=0 && (tmp[1].compareTo("")==0 || tmp[1].compareTo(newHour)>=0))
 				result.add((String) entry.getKey());
 		}
 		return result;
