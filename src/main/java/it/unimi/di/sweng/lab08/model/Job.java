@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 public enum Job {
@@ -57,7 +58,6 @@ public enum Job {
 	}
 	
 	public void loadJobs(Map<String, String[]> jobs) {
-		// TODO Auto-generated method stub
 		JOB.clear();
 		JOB.putAll(jobs);
 	}
@@ -82,10 +82,10 @@ public enum Job {
 	
 	public List<String> jobRunning() {
 		List<String> result = new ArrayList<String>();
-		Iterator it = JOB.entrySet().iterator();
+		Iterator<Entry<String, String[]>> it = JOB.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry entry = (Map.Entry)it.next();
-			String[] tmp = (String[]) entry.getValue();
+			Entry<String,String[]> entry = it.next();
+			String[] tmp = entry.getValue();
 			if (tmp[1] == "")
 				result.add((String) entry.getKey());
 		}
@@ -95,10 +95,10 @@ public enum Job {
 	public List<String> getJobActive (final String hour) {
 		String newHour = hour.replace("%3A", ":");
 		List<String> result = new ArrayList<String>();
-		Iterator it = JOB.entrySet().iterator();
+		Iterator<Entry<String, String[]>> it = JOB.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry entry = (Map.Entry)it.next();
-			String[] tmp = (String[]) entry.getValue();
+			Entry<String,String[]> entry = it.next();
+			String[] tmp = entry.getValue();
 			if (tmp[0].compareTo(newHour)<=0 && (tmp[1].compareTo("")==0 || tmp[1].compareTo(newHour)>=0))
 				result.add((String) entry.getKey());
 		}
