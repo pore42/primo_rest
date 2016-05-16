@@ -37,8 +37,7 @@ public class TestClient {
 	public void testJobs() {
 		mockServer.setReply(Method.GET,                  
 				            "/j/jobs",                 
-				            "{\"University\":[\"12:30\", \"13:30\"],"
-				            + "\"Basket\":[\"12:30\", \"13:30\"]}"); 
+				            "[\"University\", \"Basket\"]"); 
 		assertEquals("[University, Basket]",client.jobs().toString());
 	}
 	
@@ -46,7 +45,7 @@ public class TestClient {
 	public void testEmptyJobs() {
 		mockServer.setReply(Method.GET,                  
 				            "/j/jobs",                 
-				            "{}"); 
+				            "[]"); 
 		assertEquals("[]",client.jobs().toString());
 	}
 	
@@ -54,18 +53,16 @@ public class TestClient {
 	public void testNameJobs() {
 		mockServer.setReply(Method.GET,                  
 				            "/j/job/Basket",                 
-				            "{\"University\":[\"12:30\", \"13:30\"],"
-						   + "\"Basket\":[\"12:30\", \"13:30\"]}"); 
-		assertEquals("Basket = [12:30, 13:30]",client.job("Basket").toString());
+				            "{\"fine\":\"13:30\",\"inizio\":\"12:30\"}");
+		assertEquals("Basket = start:12:30 end:13:30",client.job("Basket").toString());
 	}
 	
 	@Test
 	public void testNameBeginJobs() {
 		mockServer.setReply(Method.GET,                  
-				            "/j/job/Basket",                 
-				            "{\"University\":[\"12:30\", \"13:30\"],"
-						   + "\"Basket\":[\"12:30\"]}"); 
-		assertEquals("Basket = [12:30]",client.job("Basket").toString());
+				            "/j/job/Basket",                                  
+	                        "{\"fine\":\"\",\"inizio\":\"12:30\"}"); 
+		assertEquals("Basket = start:12:30",client.job("Basket").toString());
 	}
 	
 	

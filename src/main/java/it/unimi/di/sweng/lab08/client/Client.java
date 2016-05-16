@@ -1,5 +1,6 @@
 package it.unimi.di.sweng.lab08.client;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.restlet.resource.ClientResource;
@@ -16,21 +17,23 @@ public class Client {
 
 	public Set<String> jobs() {
 		final JobResource jobs = ClientResource.create(serverUrl + "/j/jobs", JobResource.class);
-		if(jobs.jobQuantities().keySet().isEmpty()) throw new IllegalArgumentException("There are no Jobs");
-		return jobs.jobQuantities().keySet();
+		if(jobs.getAllNames().isEmpty()) throw new IllegalArgumentException("There are no Jobs");
+		return jobs.getAllNames();
 	}
 
 	public String job(final String string) {
-		final JobResource jobs = ClientResource.create(serverUrl + "/j/job/" + string, JobResource.class);
-		return string + " = " + jobs.jobQuantities().get(string);
+		final GetJobResource jobs = ClientResource.create(serverUrl + "/j/job/" + string, GetJobResource.class);
+		Map<String, String> info = jobs.getJobInfo();
+		StringBuilder s = new StringBuilder(string + " = start:" + info.get("inizio"));
+		if (!info.get("fine").isEmpty()) s.append(" end:" + info.get("fine"));
+		return s.toString();		
 	}
 	
 	public void newJob(final String job, final String begin) {
 		final ClientResource jobClient = new ClientResource(serverUrl + "/j/job/");
 		jobClient.addSegment(job);
 		jobClient.addSegment("begin");
-		//jobClient.addSegment(begin);
-		jobClient.addSegment(begin.replaceAll(":", "_"));
+		jobClient.addSegment(begin);
 		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
 		newJob.post();
 	}
@@ -39,8 +42,7 @@ public class Client {
 		final ClientResource jobClient = new ClientResource(serverUrl + "/j/job/");
 		jobClient.addSegment(job);
 		jobClient.addSegment("end");
-		//jobClient.addSegment(end);
-		jobClient.addSegment(end.replaceAll(":", "_"));
+		jobClient.addSegment(end);
 		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
 		newJob.post();
 	}
