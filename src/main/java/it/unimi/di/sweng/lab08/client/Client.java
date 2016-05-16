@@ -1,5 +1,6 @@
 package it.unimi.di.sweng.lab08.client;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,6 +47,19 @@ public class Client {
 		final PostJobWithEndResource newJob = jobClient.wrap(PostJobWithEndResource.class);
 		newJob.post();
 	}
+	
+	public List<String> runningJobs() {
+		final ClientResource jobClient = new ClientResource(serverUrl + "/j/running");
+		final GetJobRunning newJob = jobClient.wrap(GetJobRunning.class);
+		return newJob.jobRunning();
+	}
+	
+	public List<String> activeJobs(String hour) {
+		final ClientResource jobClient = new ClientResource(serverUrl + "/j/active");
+		jobClient.addSegment(hour);
+		final GetJobActive newJob = jobClient.wrap(GetJobActive.class);
+		return newJob.jobActive();
+	}
 
 	public static void main(String args[]) {
 
@@ -91,7 +105,24 @@ public class Client {
 				System.err.println("Server returned error: " + e.getMessage());
 			}
 			break;
-
+		case "running":
+			try {
+				for(String jobs : client.runningJobs()){
+					System.out.println(jobs);
+				};
+			} catch (ResourceException e) {
+				System.err.println("Server returned error: " + e.getMessage());
+			}
+			break;
+		case "active":
+			try {
+				for(String jobs : client.activeJobs(args[1])){
+					System.out.println(jobs);
+				};
+			} catch (ResourceException e) {
+				System.err.println("Server returned error: " + e.getMessage());
+			}
+			break;
 		default:
 			System.err.println("Unrecognized command, available commands: foods|eat FOOD|beverages|drink BEVERAGE");
 			break;

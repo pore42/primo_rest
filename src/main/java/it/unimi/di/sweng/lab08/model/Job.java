@@ -63,7 +63,7 @@ public enum Job {
 	}
 	
 	private boolean checkHour(final String hour) {
-		String[] splitted = hour.split("_");
+		String[] splitted = hour.split(":");
 		if (splitted.length==1)
 			return false;
 		if ((Integer.parseInt(splitted[0])>23 || Integer.parseInt(splitted[0])<0) || (Integer.parseInt(splitted[1])>59 || Integer.parseInt(splitted[0])<0))
