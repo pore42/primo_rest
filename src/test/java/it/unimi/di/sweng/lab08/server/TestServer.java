@@ -156,4 +156,9 @@ public class TestServer {
 		assertEquals("[]", mockClient.get("/j/active/12:30"));
 	}
 	
+	@Test (expected = ResourceException.class)
+	public void testNegativeNumbers() throws ResourceException, IOException {
+		mockClient.post("/j/job/nome/begin/-12:-45");
+	}
+	
 }
