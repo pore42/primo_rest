@@ -172,4 +172,11 @@ public class TestServer {
 		assertEquals("{\"fine\":\"12:30\",\"inizio\":\"9:30\"}", mockClient.get("/j/job/sweng"));
 	}
 	
+	@Test
+	public void testAct() throws ResourceException, IOException {
+		mockClient.post("/j/job/sweng/begin/9:30");
+		mockClient.post("/j/job/sweng/end/12%3A30");
+		assertEquals("[\"sweng\"]",mockClient.get("/j/active/09:34"));
+	}
+	
 }

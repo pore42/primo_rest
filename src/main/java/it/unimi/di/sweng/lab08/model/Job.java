@@ -100,9 +100,24 @@ public enum Job {
 		while (it.hasNext()) {
 			Entry<String, String[]> entry = it.next();
 			String[] tmp = entry.getValue();
-			if (tmp[0].compareTo(newHour)<=0 && (tmp[1].compareTo("")==0 || tmp[1].compareTo(newHour)>=0))
+			if (compareHour(newHour,tmp))
 				result.add((String) entry.getKey());
 		}
 		return result;
+	}
+
+	private boolean compareHour(String hour, String[] map) {
+		String[] splitted = hour.split(":");
+		String[] start = map[0].split(":");
+		String[] end = map[1].split(":");
+		if (Integer.parseInt(start[0])<Integer.parseInt(splitted[0]) || (Integer.parseInt(start[0])==Integer.parseInt(splitted[0]) && Integer.parseInt(start[1])<=Integer.parseInt(splitted[1]))) {
+			if (map[1].compareTo("")==0 || Integer.parseInt(splitted[0])<Integer.parseInt(end[0]))
+				return true; 
+			else if (Integer.parseInt(splitted[0])==Integer.parseInt(end[0]) && Integer.parseInt(splitted[1])<=Integer.parseInt(end[1]))
+				return true;
+			else
+				return false;
+		}
+		return false;
 	}
 }
