@@ -35,7 +35,7 @@ public class ShortestJob extends AbstractStatistics {
 				}
 		}
 		double duration = minDuration.toMinutes();
-		return duration / 60;
+		return round(toHours(duration), 1);
 	}
 
 }

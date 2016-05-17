@@ -23,6 +23,17 @@ public abstract class AbstractStatistics implements StatisticsStrategy {
 			data.put(job, time);
 		}
 	}
+	
+	public double toHours(double minutes) {
+		return minutes / 60;
+	}
+	
+	public static double round(double value, int places) {
+	    long factor = (long) Math.pow(10, places);
+	    value = value * factor;
+	    long tmp = Math.round(value);
+	    return (double) tmp / factor;
+	}
 
 	@Override
 	public abstract String printStat();

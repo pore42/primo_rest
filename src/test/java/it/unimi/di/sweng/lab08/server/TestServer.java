@@ -58,7 +58,7 @@ public class TestServer {
 		jobs.put("Bacon", time);
 		jobs.put("Bread", time);
 		Job.INSTANCE.loadJobs(jobs);
-		assertEquals("[\"Bread\",\"Bacon\"]", mockClient.get("/j/jobs"));
+		assertEquals("[\"Bacon\",\"Bread\"]", mockClient.get("/j/jobs"));
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class TestServer {
 		jobs.put("sport", time1);
 		jobs.put("pizza", time2);
 		Job.INSTANCE.loadJobs(jobs);
-		assertEquals("{\"fine\":\"\",\"inizio\":\"16:30\"}",mockClient.get("/j/job/sport"));
+		assertEquals("{\"inizio\":\"16:30\",\"fine\":\"\"}",mockClient.get("/j/job/sport"));
 	}
 	
 	@Test
@@ -78,7 +78,7 @@ public class TestServer {
 		String[] time = {"10:30", "12:30"};
 		jobs.put("partita", time);
 		Job.INSTANCE.loadJobs(jobs);
-		assertEquals("{\"fine\":\"12:30\",\"inizio\":\"10:30\"}",mockClient.get("/j/job/partita"));
+		assertEquals("{\"inizio\":\"10:30\",\"fine\":\"12:30\"}",mockClient.get("/j/job/partita"));
 	}
 	
 	@Test (expected = ResourceException.class)
@@ -89,7 +89,7 @@ public class TestServer {
 	@Test
 	public void testInsertBeginOfAJob() throws ResourceException, IOException {
 		mockClient.post("/j/job/scuola/begin/13:30");
-		assertEquals("{\"fine\":\"\",\"inizio\":\"13:30\"}", mockClient.get("/j/job/scuola"));
+		assertEquals("{\"inizio\":\"13:30\",\"fine\":\"\"}", mockClient.get("/j/job/scuola"));
 	}
 	
 	@Test (expected = ResourceException.class)

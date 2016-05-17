@@ -10,6 +10,11 @@ import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
 public class Client {
+private static int PORT;
+	
+	private static final String NOT_FOUND = "Not Found (404) - The server has not found anything matching the request URI";
+	private String serverUrl;
+	private StatisticsStrategy stat;
 	private static final String MESSAGE = "Missing command, available commands:\n"
 			                             + " - jobs   ->   for a list of JOBS\n"
 			                             + " - job {name}   ->   to get info on a particular JOB\n"
@@ -23,11 +28,7 @@ public class Client {
 			                             + " - help -> for help";
 	
 
-	private static int PORT;
 	
-	private static final String NOT_FOUND = "Not Found (404) - The server has not found anything matching the request URI";
-	private String serverUrl;
-	private StatisticsStrategy stat;
 
 	public Client(final int port) {
 		PORT = port;

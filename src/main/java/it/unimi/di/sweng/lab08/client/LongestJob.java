@@ -33,6 +33,6 @@ public class LongestJob extends AbstractStatistics {
 			}
 		}
 		double duration = maxDuration.toMinutes();
-		return duration / 60;
+		return round(toHours(duration), 1);
 	}
 }
