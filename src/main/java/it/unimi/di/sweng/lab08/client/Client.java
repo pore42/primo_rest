@@ -56,7 +56,6 @@ private static int PORT;
 	public void newJob(final String job, final String begin) {
 		final ClientResource jobClient = buildClient("begin",job, begin);
 		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
-		System.out.println(jobClient.getResponse().getAge());
 		newJob.post();
 	}
 
