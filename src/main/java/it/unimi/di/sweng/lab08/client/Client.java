@@ -1,45 +1,46 @@
 package it.unimi.di.sweng.lab08.client;
 
-import java.io.IOException;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import org.restlet.data.ClientInfo;
-import org.restlet.data.MediaType;
-import org.restlet.representation.Representation;
-import org.restlet.representation.StringRepresentation;
+
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
 
 public class Client {
 
+	private static final String NOT_FOUND = "Not Found (404) - The server has not found anything matching the request URI";
 	private String serverUrl;
 
 	public Client(final int port) {
 		this.serverUrl = "http://localhost:" + port;
 	}
 
-	public Set<String> jobs() {
+	public List<String> jobs() {
 		final JobResource jobs = ClientResource.create(serverUrl + "/j/jobs", JobResource.class);
 		if(jobs.getAllNames().isEmpty()) throw new IllegalArgumentException("There are no Jobs");
-		return jobs.getAllNames();
+		return new ArrayList<String>(jobs.getAllNames());
 	}
 
-	public String job(final String string) {
+	public Map<String,String> job(final String string) {
 		final GetJobResource jobs = ClientResource.create(serverUrl + "/j/job/" + string, GetJobResource.class);
-		Map<String, String> info = jobs.getJobInfo();
-		StringBuilder s = new StringBuilder(string + ": start=" + info.get("inizio"));
-		if (!info.get("fine").isEmpty()) s.append(" | end=" + info.get("fine"));
-		return s.toString();		
+		Map<String, String> info;
+		try {
+			info = jobs.getJobInfo();
+		} catch (Exception e) {
+			if (e.getMessage().equals(NOT_FOUND));
+			throw new IllegalArgumentException("There is no " + string + " JOB");
+		}
+		return info;		
 	}
 	
 	public void newJob(final String job, final String begin) {
 		final ClientResource jobClient = buildClient("begin",job, begin);
 		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
 		System.out.println(jobClient.getResponse().getAge());
-		
 		newJob.post();
 	}
 
@@ -51,7 +52,6 @@ public class Client {
 	
 	public List<String> runningJobs() {
 		final ClientResource jobClient = new ClientResource(serverUrl + "/j/running");
-		
 		final GetJobRunning newJob = jobClient.wrap(GetJobRunning.class);
 		return newJob.jobRunning();
 	}
@@ -101,7 +101,11 @@ public class Client {
 
 		case "job":
 			try {
-				System.out.println(client.job(args[1]));
+				StringBuilder s = new StringBuilder(args[1] + ": inizio=");
+				Map<String,String> info = client.job(args[1]);
+				s.append(info.get("inizio"));
+				if(!info.get("fine").isEmpty()) s.append(", fine=" + info.get("fine"));
+				System.out.println(s.toString());
 			} catch (ResourceException e) {
 				System.err.println("Server returned error: " + e.getMessage());
 			}

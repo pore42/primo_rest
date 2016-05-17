@@ -36,8 +36,26 @@ public class TestClientRealServer {
 		client.newJob("university", "8:30");
 		assertEquals("[university]", client.jobs().toString());
 		client.endJob("university", "12:30");
-		assertEquals("university: start=8:30 | end=12:30", client.job("university"));
+		assertEquals("{inizio=8:30, fine=12:30}", client.job("university").toString());
 		client.newJob("music", "14:30");
 		assertEquals("[music, university]", client.jobs().toString());
+	}
+	
+	@Test
+	public void testNoJobs() throws Exception {
+		try {
+			client.jobs();
+		} catch (Exception e) {
+			assertEquals("There are no Jobs", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testAbsentJob() throws Exception {
+		try {
+			client.job("shopping");
+		} catch (Exception e) {
+			assertEquals("There is no shopping JOB", e.getMessage());
+		}
 	}
 }

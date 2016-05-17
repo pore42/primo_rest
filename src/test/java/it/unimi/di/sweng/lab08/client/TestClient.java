@@ -54,7 +54,7 @@ public class TestClient {
 		mockServer.setReply(Method.GET,                  
 				            "/j/job/Basket",                 
 				            "{\"fine\":\"13:30\",\"inizio\":\"12:30\"}");
-		assertEquals("Basket = start:12:30 end:13:30",client.job("Basket").toString());
+		assertEquals("{fine=13:30, inizio=12:30}",client.job("Basket").toString());
 	}
 	
 	@Test
@@ -62,7 +62,7 @@ public class TestClient {
 		mockServer.setReply(Method.GET,                  
 				            "/j/job/Basket",                                  
 	                        "{\"fine\":\"\",\"inizio\":\"12:30\"}"); 
-		assertEquals("Basket = start:12:30",client.job("Basket").toString());
+		assertEquals("{fine=, inizio=12:30}",client.job("Basket").toString());
 	}
 	
 }
