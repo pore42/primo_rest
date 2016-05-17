@@ -60,6 +60,13 @@ public class Client {
 		final GetJobActive newJob = jobClient.wrap(GetJobActive.class);
 		return newJob.jobActive();
 	}
+	
+	public int calcola(String tipocalcolo)
+	{
+		
+		return statistiche.calcola(tipocalcolo);
+	}
+	
 
 	public static void main(String args[]) {
 
@@ -123,6 +130,15 @@ public class Client {
 				System.err.println("Server returned error: " + e.getMessage());
 			}
 			break;
+		case "calcola":
+			try {
+				System.out.println(client.calcola(args[1]));
+			} catch (ResourceException e) {
+				System.err.println("Server returned error: " + e.getMessage());
+			}
+			break;
+			
+			
 		default:
 			System.err.println("Unrecognized command, available commands: foods|eat FOOD|beverages|drink BEVERAGE");
 			break;
