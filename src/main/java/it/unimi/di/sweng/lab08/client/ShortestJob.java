@@ -4,12 +4,12 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Set;
 
-public class MinJob extends AbstractStatistics {
+public class ShortestJob extends AbstractStatistics {
 
 	private static int PORT;
 	private static String job;
 
-	public MinJob(int port) {
+	public ShortestJob(int port) {
 		PORT = port;
 	}
 	

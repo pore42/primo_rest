@@ -4,11 +4,11 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Set;
 
-public class MaxJob extends AbstractStatistics {
+public class LongestJob extends AbstractStatistics {
 	private static int PORT;
 	private static String job = null;
 	
-	public MaxJob(int port) {
+	public LongestJob(int port) {
 		PORT = port;
 	}
 	@Override

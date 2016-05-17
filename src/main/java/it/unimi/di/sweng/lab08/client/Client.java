@@ -162,7 +162,7 @@ public class Client {
 			break;
 		case "longest":
 			try {
-				client.setStatistics(new MaxJob(PORT));
+				client.setStatistics(new LongestJob(PORT));
 				System.out.println(client.printStatistics());
 			} catch (ResourceException e) {
 				System.err.println("Server returned error: " + e.getMessage());
@@ -170,7 +170,7 @@ public class Client {
 			break;
 		case "shortest":
 			try {
-				client.setStatistics(new MinJob(PORT));
+				client.setStatistics(new ShortestJob(PORT));
 				System.out.println(client.printStatistics());
 			} catch (ResourceException e) {
 				System.err.println("Server returned error: " + e.getMessage());
