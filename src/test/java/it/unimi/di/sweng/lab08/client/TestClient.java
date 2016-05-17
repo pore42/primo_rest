@@ -38,7 +38,7 @@ public class TestClient {
 		mockServer.setReply(Method.GET,                  
 				            "/j/jobs",                 
 				            "[\"University\", \"Basket\"]"); 
-		assertEquals("[Basket, University]",client.jobs().toString());
+		assertEquals("[University, Basket]",client.jobs().toString());
 	}
 	
 	@Test (expected = IllegalArgumentException.class)

@@ -58,4 +58,12 @@ public class TestClientRealServer {
 			assertEquals("There is no shopping JOB", e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testJobStatistics() throws Exception {
+		client.newJob("pianoforte", "01:30");;
+		client.endJob("pianoforte", "20:30");
+		client.setStatistics(new MaxJob(PORT));
+		assertEquals("19", client.printStatistics());
+	}
 }

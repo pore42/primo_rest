@@ -9,14 +9,16 @@ import java.util.Map;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
-
 public class Client {
-
+	private static int PORT;
+	
 	private static final String NOT_FOUND = "Not Found (404) - The server has not found anything matching the request URI";
 	private String serverUrl;
+	private StatisticsStrategy stat;
 
 	public Client(final int port) {
-		this.serverUrl = "http://localhost:" + port;
+		PORT = port;
+		this.serverUrl = "http://localhost:" + PORT;
 	}
 
 	public List<String> jobs() {
@@ -73,7 +75,13 @@ public class Client {
 	}
 
 		
-
+	public void setStatistics (StatisticsStrategy stat) {
+		this.stat = stat;
+	}
+	
+	public String printStatistics(){
+		return stat.printStat();
+	}
 
 	public static void main(String args[]) {
 
@@ -140,14 +148,15 @@ public class Client {
 				System.err.println("Server returned error: " + e.getMessage());
 			}
 			break;
-/*		case "calcola":
+		case "longest":
 			try {
-				System.out.println(client.calcola(args[1]));
+				client.setStatistics(new MaxJob(PORT));
+				System.out.println(client.printStatistics());
 			} catch (ResourceException e) {
 				System.err.println("Server returned error: " + e.getMessage());
 			}
 			break;
-*/			
+		
 			
 		default:
 			System.err.println("Unrecognized command, available commands: foods|eat FOOD|beverages|drink BEVERAGE");
