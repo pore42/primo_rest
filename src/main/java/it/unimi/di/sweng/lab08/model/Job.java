@@ -20,15 +20,6 @@ public enum Job {
 	public synchronized Map<String, String> getJobInfo(final String job) {
 		if (!JOB.containsKey(job)) throw new NoSuchElementException("The job " + job + " is not already created.");
 		String[] time = JOB.get(job);
-		/*
-		StringBuilder res = new StringBuilder();
-		String[] time = JOB.get(job);
-		if (time[1]=="")
-			res.append("Inizio " + time[0]);
-		else
-			res.append("Inizio " + time[0]).append(", fine " + time[1]);
-		return res.toString();
-		*/
 		Map<String, String> result = new HashMap<String, String>();
 		result.put("inizio", time[0]);
 		if(time[1] != "") {
@@ -58,7 +49,6 @@ public enum Job {
 	}
 	
 	public void loadJobs(Map<String, String[]> jobs) {
-		// TODO Auto-generated method stub
 		JOB.clear();
 		JOB.putAll(jobs);
 	}
@@ -74,9 +64,7 @@ public enum Job {
 	
 	private boolean isBeforeStart(final String job, final String hour) {
 		String[] hours = JOB.get(job);
-		if (Integer.parseInt(hours[0].split(":")[0]) > Integer.parseInt(hour.split(":")[0]))
-			return true;
-		else if(Integer.parseInt(hours[0].split(":")[0]) == Integer.parseInt(hour.split(":")[0]) && Integer.parseInt(hours[0].split(":")[1]) > Integer.parseInt(hour.split(":")[1]))
+		if (!compareHour(hour, hours))
 			return true;
 		return false;
 	}
