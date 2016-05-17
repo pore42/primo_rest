@@ -191,7 +191,7 @@ private static int PORT;
 		
 			
 		default:
-			System.err.println("Unrecognized command, available commands: foods|eat FOOD|beverages|drink BEVERAGE");
+			System.err.println(MESSAGE);
 			break;
 		}
 	}
