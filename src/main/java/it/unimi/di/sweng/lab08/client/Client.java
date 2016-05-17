@@ -1,5 +1,7 @@
 package it.unimi.di.sweng.lab08.client;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,8 +65,18 @@ public class Client {
 	
 	public int calcola(String tipocalcolo)
 	{
+		Iterator<String> it= jobs().iterator();
+		Map<String, String> dati=new HashMap<String, String>();
 		
-		return statistiche.calcola(tipocalcolo);
+		while(it.hasNext())
+		{
+			dati.put(it.next(),job(it.next()));
+		}
+		//non posso istanziare sta classe, quindi a parer mio o si fa uno switch qui in cui assegno a stat la specifica sotto classe che calcola il minimo (ad esempio) in base alla stringa
+		//oppure non so bene un altro metodo.
+		StatisticStrategy stat= new StatisticStrategy(dati);
+		
+		return stat.calcola(tipocalcolo);
 	}
 	
 
