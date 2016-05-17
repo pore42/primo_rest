@@ -34,10 +34,10 @@ public class TestClient {
 	@Test
 	public void testFoods() {
 		// fase di impostazione del mockServer
-		mockServer.setReply(Method.GET,                   // azione da simulare
-				            "/ed/foods",                  // dove dovrebbero essere localizzati i dati
-				            "{\"Bacon\":3\"Bread\":5}"); // i dati che dovrebbero essere presenti nel serer
-		System.out.println(client.foods());
+//		mockServer.setReply(Method.GET,                   // azione da simulare
+//				            "/ed/foods",                  // dove dovrebbero essere localizzati i dati
+//				            "{\"Bacon\":3\"Bread\":5}"); // i dati che dovrebbero essere presenti nel serer
+		//System.out.println(client.foods());
 	}
 
 }
