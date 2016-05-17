@@ -38,5 +38,4 @@ public class TestClient {
 				            "{\"Bacon\":3\"Bread\":5}");
 		System.out.println(client.foods());
 	}
-
 }

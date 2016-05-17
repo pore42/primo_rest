@@ -63,6 +63,7 @@ public class Client {
 		return newJob.jobActive();
 	}
 	
+
 	private ClientResource buildClient(final String action, final String job, final String begin) {
 		final ClientResource jobClient = new ClientResource(serverUrl + "/j/job");
 		jobClient.addSegment(job);
@@ -70,6 +71,9 @@ public class Client {
 		jobClient.addSegment(begin);
 		return jobClient;
 	}
+
+		
+
 
 	public static void main(String args[]) {
 
@@ -136,6 +140,15 @@ public class Client {
 				System.err.println("Server returned error: " + e.getMessage());
 			}
 			break;
+/*		case "calcola":
+			try {
+				System.out.println(client.calcola(args[1]));
+			} catch (ResourceException e) {
+				System.err.println("Server returned error: " + e.getMessage());
+			}
+			break;
+*/			
+			
 		default:
 			System.err.println("Unrecognized command, available commands: foods|eat FOOD|beverages|drink BEVERAGE");
 			break;
