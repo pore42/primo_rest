@@ -19,6 +19,7 @@ public class Client {
 			                             + " - active {time} {time} -> to see a list of active jobs in a certain time span\n"
 			                             + " - longest -> for the longest JOB\n"
 			                             + " - shortest -> for the shortest JOB\n"
+			                             + " - average -> for a time average of the JOBS\n"
 			                             + " - help -> for help";
 	
 
@@ -171,6 +172,14 @@ public class Client {
 		case "shortest":
 			try {
 				client.setStatistics(new ShortestJob(PORT));
+				System.out.println(client.printStatistics());
+			} catch (ResourceException e) {
+				System.err.println("Server returned error: " + e.getMessage());
+			}
+			break;
+		case "average":
+			try {
+				client.setStatistics(new AverageJobs(PORT));
 				System.out.println(client.printStatistics());
 			} catch (ResourceException e) {
 				System.err.println("Server returned error: " + e.getMessage());
