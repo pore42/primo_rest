@@ -64,6 +64,6 @@ public class TestClientRealServer {
 		client.newJob("pianoforte", "01:30");;
 		client.endJob("pianoforte", "20:30");
 		client.setStatistics(new MaxJob(PORT));
-		assertEquals("19", client.printStatistics());
+		assertEquals("The longest job is music with a duration of 19.0 hours\n", client.printStatistics());
 	}
 }
