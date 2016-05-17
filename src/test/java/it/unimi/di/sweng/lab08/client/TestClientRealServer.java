@@ -61,10 +61,10 @@ public class TestClientRealServer {
 	
 	@Test
 	public void testJobStatistics() throws Exception {
-		client.newJob("pianoforte", "01:30");;
-		client.endJob("pianoforte", "20:00");
+		client.newJob("reading", "01:30");;
+		client.endJob("reading", "20:00");
 		client.setStatistics(new MaxJob(PORT));
-		assertEquals("The longest job is pianoforte with a duration of 18.5 hours\n", client.printStatistics());
+		assertEquals("The longest job is reading with a duration of 18.5 hours\n", client.printStatistics());
 	}
 	
 	@Test
