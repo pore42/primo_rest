@@ -48,9 +48,9 @@ public class TestIntegration {
 	
 	@Test 
 	public void testNewJob() {
-		client.newJob("sweng", "9:30");
+		client.newJob("sweng", "01:30");
 		assertEquals("[sweng]", client.jobs().toString());
-		assertEquals("{inizio=9:30, fine=}", client.job("sweng").toString());
+		assertEquals("{inizio=01:30, fine=}", client.job("sweng").toString());
 	}
 	
 	@Test

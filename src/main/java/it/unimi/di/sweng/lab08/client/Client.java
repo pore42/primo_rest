@@ -85,7 +85,7 @@ public class Client {
 		case "jobs":
 			try {
 				for (String job : client.jobs())
-					System.out.format("%s ", job);
+					System.out.println(job);
 			} catch (ResourceException e) {
 				System.err.println("Server returned error: " + e.getMessage());
 			}
