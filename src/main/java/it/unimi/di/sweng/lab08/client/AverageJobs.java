@@ -27,8 +27,6 @@ public class AverageJobs extends AbstractStatistics{
 			LocalTime begin = LocalTime.parse(data.get(key)[0]);
 			
 			if(!data.get(key)[1].isEmpty()) {
-				System.out.println(data.get(key)[0]);
-				System.out.println(data.get(key)[1]);
 				LocalTime end = LocalTime.parse(data.get(key)[1]);
 				totalDuration = Duration.between(begin,end);
 			}
