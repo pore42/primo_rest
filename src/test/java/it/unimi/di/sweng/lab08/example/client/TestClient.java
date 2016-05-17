@@ -33,8 +33,9 @@ public class TestClient {
 
 	@Test
 	public void testFoods() {
-		mockServer.setReply(Method.GET, "/ed/foods", "{\"Bacon\":3,\"Bread\":5}");
+		mockServer.setReply(Method.GET,                  
+				            "/ed/foods",                  
+				            "{\"Bacon\":3\"Bread\":5}");
 		System.out.println(client.foods());
 	}
-
 }
