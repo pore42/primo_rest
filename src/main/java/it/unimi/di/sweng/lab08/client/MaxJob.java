@@ -30,7 +30,7 @@ public class MaxJob extends AbstractStatistics {
 					job = key;
 		}
 		}
-			
-		return maxDuration.toMinutes() / 60;
+		double duration = maxDuration.toMinutes();
+		return duration / 60;
 	}
 }
