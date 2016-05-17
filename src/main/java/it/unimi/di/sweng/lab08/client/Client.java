@@ -10,6 +10,18 @@ import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
 public class Client {
+	private static final String MESSAGE = "Missing command, available commands:\n"
+			                             + " - jobs   ->   for a list of JOBS\n"
+			                             + " - job {name}   ->   to get info on a particular JOB\n"
+			                             + " - newJob {name} {begin-time}   ->   to create a new JOB\n"
+			                             + " - endJob {name} {end-time}   ->   to set the termination of a JOB\n"
+			                             + " - running -> for a list of active JOBS\n"
+			                             + " - active {time} {time} -> to see a list of active jobs in a certain time span\n"
+			                             + " - longest -> for the longest JOB\n"
+			                             + " - shortest -> for the shortest JOB\n"
+			                             + " - help -> for help";
+	
+
 	private static int PORT;
 	
 	private static final String NOT_FOUND = "Not Found (404) - The server has not found anything matching the request URI";
@@ -86,7 +98,7 @@ public class Client {
 	public static void main(String args[]) {
 
 		if (args.length == 0) {
-			System.err.println("Missing command, available commands: jobs|job|newJob|endJob");
+			System.err.println(MESSAGE);
 			System.exit(-1);
 		}
 
@@ -155,6 +167,17 @@ public class Client {
 			} catch (ResourceException e) {
 				System.err.println("Server returned error: " + e.getMessage());
 			}
+			break;
+		case "shortest":
+			try {
+				client.setStatistics(new MinJob(PORT));
+				System.out.println(client.printStatistics());
+			} catch (ResourceException e) {
+				System.err.println("Server returned error: " + e.getMessage());
+			}
+			break;
+		case "help":
+			System.out.println(MESSAGE);
 			break;
 		
 			

@@ -33,10 +33,10 @@ public class TestClientRealServer {
 	
 	@Test
 	public void testnewJob() throws Exception {
-		client.newJob("university", "8:30");
+		client.newJob("university", "08:30");
 		assertEquals("[university]", client.jobs().toString());
 		client.endJob("university", "12:30");
-		assertEquals("{inizio=8:30, fine=12:30}", client.job("university").toString());
+		assertEquals("{inizio=08:30, fine=12:30}", client.job("university").toString());
 		client.newJob("music", "14:30");
 		assertEquals("[music, university]", client.jobs().toString());
 	}
@@ -62,8 +62,14 @@ public class TestClientRealServer {
 	@Test
 	public void testJobStatistics() throws Exception {
 		client.newJob("pianoforte", "01:30");;
-		client.endJob("pianoforte", "20:30");
+		client.endJob("pianoforte", "20:00");
 		client.setStatistics(new MaxJob(PORT));
-		assertEquals("The longest job is music with a duration of 19.0 hours\n", client.printStatistics());
+		assertEquals("The longest job is pianoforte with a duration of 18.5 hours\n", client.printStatistics());
+	}
+	
+	@Test
+	public void testShortestJob() throws Exception {
+		client.setStatistics(new MinJob(PORT));
+		assertEquals("The shortest job is university with a duration of 4.0 hours\n", client.printStatistics());
 	}
 }

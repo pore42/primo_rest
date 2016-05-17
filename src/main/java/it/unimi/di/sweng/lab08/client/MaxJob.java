@@ -23,14 +23,15 @@ public class MaxJob extends AbstractStatistics {
 		Duration maxDuration = Duration.ZERO;
 		for (String key : keys) {
 			LocalTime begin = LocalTime.parse(data.get(key)[0]);
+			if(!data.get(key)[1].isEmpty()) {
 			LocalTime end = LocalTime.parse(data.get(key)[1]);
-				if (maxDuration.compareTo(Duration.between(begin, end)) == -1 ||
-				    maxDuration == null) {
-					maxDuration = Duration.between(begin, end);
+				if (maxDuration.compareTo(Duration.between(begin, end)) == -1) {
+					maxDuration = Duration.between(begin,end);
 					job = key;
+				}
+			}
 		}
-		}
-			
-		return maxDuration.toMinutes() / 60;
+		double duration = maxDuration.toMinutes();
+		return duration / 60;
 	}
 }

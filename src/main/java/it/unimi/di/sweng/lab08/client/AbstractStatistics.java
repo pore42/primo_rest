@@ -9,18 +9,18 @@ public abstract class AbstractStatistics implements StatisticsStrategy {
 	
 	@Override
 	public void pullInfo(final int port) {
+		data.clear();
 		Client client = new Client(port);
 		List<String> jobs = client.jobs();
-		String[] time = new String[2];
+		
 		for (String job : jobs) {
+			String[] time = new String[2];
 			Map<String,String> info = client.job(job);
-			
 			String s = info.get("inizio");
 			time[0] = s;
 			s = info.get("fine");
 			time[1] = s;
 			data.put(job, time);
-			
 		}
 	}
 
