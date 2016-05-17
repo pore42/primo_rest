@@ -166,10 +166,10 @@ public class TestServer {
 		assertEquals("[]", mockClient.get("/j/jobs"));
 		mockClient.post("/j/job/sweng/begin/9:30");
 		assertEquals("[\"sweng\"]", mockClient.get("/j/jobs"));
-		assertEquals("{\"fine\":\"\",\"inizio\":\"9:30\"}", mockClient.get("/j/job/sweng"));
+		assertEquals("{\"inizio\":\"9:30\",\"fine\":\"\"}", mockClient.get("/j/job/sweng"));
 		assertEquals("[\"sweng\"]", mockClient.get("/j/running"));
 		mockClient.post("/j/job/sweng/end/12%3A30");
-		assertEquals("{\"fine\":\"12:30\",\"inizio\":\"9:30\"}", mockClient.get("/j/job/sweng"));
+		assertEquals("{\"inizio\":\"9:30\",\"fine\":\"12:30\"}", mockClient.get("/j/job/sweng"));
 	}
 	
 	@Test
