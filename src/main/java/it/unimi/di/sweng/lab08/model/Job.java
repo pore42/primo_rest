@@ -20,22 +20,10 @@ public enum Job {
 	public synchronized Map<String, String> getJobInfo(final String job) {
 		if (!JOB.containsKey(job)) throw new NoSuchElementException("The job " + job + " is not already created.");
 		String[] time = JOB.get(job);
-		/*
-		StringBuilder res = new StringBuilder();
-		String[] time = JOB.get(job);
-		if (time[1]=="")
-			res.append("Inizio " + time[0]);
-		else
-			res.append("Inizio " + time[0]).append(", fine " + time[1]);
-		return res.toString();
-		*/
 		Map<String, String> result = new HashMap<String, String>();
 		result.put("inizio", time[0]);
-		if(time[1] != "") {
-			result.put("fine", time[1]);
-		} else {
-			result.put("fine", "");
-		}
+		if(time[1] != "") result.put("fine", time[1]);
+		else result.put("fine", "");
 		return result;
 	}
 	

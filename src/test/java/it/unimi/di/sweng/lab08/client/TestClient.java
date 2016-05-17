@@ -65,5 +65,4 @@ public class TestClient {
 		assertEquals("Basket = start:12:30",client.job("Basket").toString());
 	}
 	
-	
 }

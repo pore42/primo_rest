@@ -4,7 +4,6 @@ import java.util.Set;
 
 import org.restlet.resource.Get;
 
-
 public interface JobResource {
 	@Get
 	public Set<String> getAllNames();

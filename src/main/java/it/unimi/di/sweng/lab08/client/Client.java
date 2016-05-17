@@ -1,9 +1,14 @@
 package it.unimi.di.sweng.lab08.client;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.restlet.data.ClientInfo;
+import org.restlet.data.MediaType;
+import org.restlet.representation.Representation;
+import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
@@ -25,31 +30,28 @@ public class Client {
 	public String job(final String string) {
 		final GetJobResource jobs = ClientResource.create(serverUrl + "/j/job/" + string, GetJobResource.class);
 		Map<String, String> info = jobs.getJobInfo();
-		StringBuilder s = new StringBuilder(string + " = start:" + info.get("inizio"));
-		if (!info.get("fine").isEmpty()) s.append(" end:" + info.get("fine"));
+		StringBuilder s = new StringBuilder(string + ": start=" + info.get("inizio"));
+		if (!info.get("fine").isEmpty()) s.append(" | end=" + info.get("fine"));
 		return s.toString();		
 	}
 	
 	public void newJob(final String job, final String begin) {
-		final ClientResource jobClient = new ClientResource(serverUrl + "/j/job");
-		jobClient.addSegment(job);
-		jobClient.addSegment("begin");
-		jobClient.addSegment(begin);
+		final ClientResource jobClient = buildClient("begin",job, begin);
 		final PostJobWithBeginResource newJob = jobClient.wrap(PostJobWithBeginResource.class);
+		System.out.println(jobClient.getResponse().getAge());
+		
 		newJob.post();
 	}
 
 	public void endJob(final String job, final String end) {
-		final ClientResource jobClient = new ClientResource(serverUrl + "/j/job/");
-		jobClient.addSegment(job);
-		jobClient.addSegment("end");
-		jobClient.addSegment(end);
+		final ClientResource jobClient = buildClient("end",job, end);
 		final PostJobWithEndResource newJob = jobClient.wrap(PostJobWithEndResource.class);
 		newJob.post();
 	}
 	
 	public List<String> runningJobs() {
 		final ClientResource jobClient = new ClientResource(serverUrl + "/j/running");
+		
 		final GetJobRunning newJob = jobClient.wrap(GetJobRunning.class);
 		return newJob.jobRunning();
 	}
@@ -59,6 +61,14 @@ public class Client {
 		jobClient.addSegment(hour);
 		final GetJobActive newJob = jobClient.wrap(GetJobActive.class);
 		return newJob.jobActive();
+	}
+	
+	private ClientResource buildClient(final String action, final String job, final String begin) {
+		final ClientResource jobClient = new ClientResource(serverUrl + "/j/job");
+		jobClient.addSegment(job);
+		jobClient.addSegment(action);
+		jobClient.addSegment(begin);
+		return jobClient;
 	}
 
 	public static void main(String args[]) {
@@ -74,7 +84,6 @@ public class Client {
 
 		case "jobs":
 			try {
-				//System.out.format("There are: ");
 				for (String job : client.jobs())
 					System.out.format("%s ", job);
 			} catch (ResourceException e) {
@@ -128,4 +137,5 @@ public class Client {
 			break;
 		}
 	}
+	
 }
